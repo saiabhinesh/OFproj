@@ -55,16 +55,12 @@ class collectionview(ListCreateAPIView):
         queryset = self.get_queryset()
         serializer = collection_serializer(queryset, many=True)
         x=serializer.data
-        print("x is",x)
         my_dict={"is_sucess":True,"data":{"collections":x},"favourite_genres":"moviesx"}
-        print("my dict is",my_dict)
         z=Response(my_dict)
-        print("response is",z.data)
         return z
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        print("serializer data create",serializer.data)
         #headers = self.get_success_headers(serializer.data)
         return Response(serializer.data,)
